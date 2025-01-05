@@ -2,119 +2,98 @@ import { IconType } from "react-icons";
 import { AiFillFileText } from "react-icons/ai";
 import { IoIosPeople } from "react-icons/io";
 import { RiDashboardFill, RiShoppingBag3Fill } from "react-icons/ri";
-import { Link, Location, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const AdminSidebar = () => {
   const location = useLocation();
 
+  const menuGroups = [
+    {
+      title: "Dashboard",
+      items: [
+        { url: "/admin/dashboard", text: "Dashboard", Icon: RiDashboardFill },
+        { url: "/admin/product", text: "Products", Icon: RiShoppingBag3Fill },
+        { url: "/admin/customer", text: "Customer", Icon: IoIosPeople },
+        {
+          url: "/admin/transaction",
+          text: "Transaction",
+          Icon: AiFillFileText,
+        },
+      ],
+    },
+    {
+      title: "Other Section",
+      items: [
+        { url: "/admin/dashboard", text: "Dashboard", Icon: RiDashboardFill },
+        { url: "/admin/product", text: "Products", Icon: RiShoppingBag3Fill },
+        { url: "/admin/customer", text: "Customer", Icon: IoIosPeople },
+      ],
+    },
+  ];
+
   return (
     <aside>
-      <h2>Logo.</h2>
-      <DivOne location={location} />
-      <DivTwo location={location} />
+      <h2>Logo</h2>
+      {menuGroups.map((group, index) => (
+        <MenuGroup
+          key={index}
+          title={group.title}
+          items={group.items}
+          location={location}
+        />
+      ))}
     </aside>
   );
 };
 
-const DivOne = ({ location }: { location: Location }) => {
+const MenuGroup = ({
+  title,
+  items,
+  location,
+}: {
+  title: string;
+  items: MenuItem[];
+  location: Location;
+}) => {
   return (
     <div>
-      <h5>Dashboard</h5>
+      <h5>{title}</h5>
       <ul>
-        <li>
-          <Li
-            url="/admin/dashboard"
-            text="Dashboard"
-            Icon={RiDashboardFill}
-            location={location}
-          />
-        </li>
-        <li>
-          <Li
-            url="/admin/product"
-            text="Products"
-            Icon={RiShoppingBag3Fill}
-            location={location}
-          />
-        </li>
-        <li>
-          <Li
-            url="/admin/customer"
-            text="Customer"
-            Icon={IoIosPeople}
-            location={location}
-          />
-        </li>
-        <li>
-          <Li
-            url="/admin/transaction"
-            text="Transaction"
-            Icon={AiFillFileText}
-            location={location}
-          />
-        </li>
+        {items.map((item) => (
+          <MenuItemComponent key={item.url} item={item} location={location} />
+        ))}
       </ul>
     </div>
   );
 };
 
-const DivTwo = ({ location }: { location: Location }) => {
-  return (
-    <div>
-      <h5>Charts</h5>
-      <ul>
-        <li>
-          <Li
-            url="/admin/dashboard"
-            text="Dashboard"
-            Icon={RiDashboardFill}
-            location={location}
-          />
-        </li>
-        <li>
-          <Li
-            url="/admin/product"
-            text="Products"
-            Icon={RiShoppingBag3Fill}
-            location={location}
-          />
-        </li>
-        <li>
-          <Li
-            url="/admin/customer"
-            text="Customer"
-            Icon={IoIosPeople}
-            location={location}
-          />
-        </li>
-      </ul>
-    </div>
-  );
-};
-
-
-interface LiProps {
+interface MenuItem {
   url: string;
   text: string;
-  location: Location;
   Icon: IconType;
 }
-const Li = ({ url, text, location, Icon }: LiProps) => {
+const MenuItemComponent = ({
+  item,
+  location,
+}: {
+  item: MenuItem;
+  location: Location;
+}) => {
+  const isActive = location.pathname.includes(item.url);
+
   return (
     <li
       style={{
-        backgroundColor: location.pathname.includes(url)
-          ? "rgba(0,115,255,0.1)"
-          : "white",
+        backgroundColor: isActive ? "rgba(0,115,255,0.1)" : "white",
       }}
     >
       <Link
-        to={url}
+        to={item.url}
         style={{
-          color: location.pathname.includes(url) ? "rgb(0,115,255)" : "black",
+          color: isActive ? "rgb(0,115,255)" : "black",
         }}
       >
-        <Icon /> {text}
+        <item.Icon /> {item.text}
       </Link>
     </li>
   );
