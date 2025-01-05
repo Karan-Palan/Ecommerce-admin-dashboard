@@ -5,8 +5,9 @@ const Dashboard = () => {
     <div className="adminContainer">
       {/* Sidebar */}
       <AdminSidebar />
-      hey
-      {/* Main */}
+      <main className="dashboard">
+        <div className="bar">asd</div>
+      </main>
     </div>
   );
 };

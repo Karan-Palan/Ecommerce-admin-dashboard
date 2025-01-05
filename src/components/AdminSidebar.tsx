@@ -1,7 +1,12 @@
 import { IconType } from "react-icons";
 import { AiFillFileText } from "react-icons/ai";
+import { FaChartBar, FaChartLine, FaChartPie } from "react-icons/fa";
 import { IoIosPeople } from "react-icons/io";
-import { RiDashboardFill, RiShoppingBag3Fill } from "react-icons/ri";
+import {
+  RiCoupon2Fill,
+  RiDashboardFill,
+  RiShoppingBag3Fill,
+} from "react-icons/ri";
 import { Link, useLocation } from "react-router-dom";
 
 const AdminSidebar = () => {
@@ -19,14 +24,19 @@ const AdminSidebar = () => {
           text: "Transaction",
           Icon: AiFillFileText,
         },
+        {
+          url: "/admin/coupon",
+          text: "Issue Coupon",
+          Icon: RiCoupon2Fill,
+        },
       ],
     },
     {
-      title: "Other Section",
+      title: "Charts",
       items: [
-        { url: "/admin/dashboard", text: "Dashboard", Icon: RiDashboardFill },
-        { url: "/admin/product", text: "Products", Icon: RiShoppingBag3Fill },
-        { url: "/admin/customer", text: "Customer", Icon: IoIosPeople },
+        { url: "/admin/chart/bar", text: "Bar", Icon: FaChartBar },
+        { url: "/admin/chart/pie", text: "Pie", Icon: FaChartPie },
+        { url: "/admin/chart/line", text: "Line", Icon: FaChartLine },
       ],
     },
   ];
