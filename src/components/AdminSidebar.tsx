@@ -43,7 +43,7 @@ const AdminSidebar = () => {
 
   return (
     <aside>
-      <h2>Logo</h2>
+      <h2>Admin Dashboard</h2>
       {menuGroups.map((group, index) => (
         <MenuGroup
           key={index}
